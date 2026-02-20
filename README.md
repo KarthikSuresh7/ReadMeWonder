@@ -24,7 +24,7 @@
 
 | Property | Value |
 |----------|-------|
-| **Build Time** | `2026-02-21 01:15:17` |
+| **Build Time** | `2026-02-21 01:21:23` |
 | **Java Version** | `21.0.9` |
 | **Java Home** | `C:\Program Files\Java\jdk-21` |
 | **OS** | `Windows 11 (amd64)` |
@@ -36,9 +36,9 @@
 
 | Property | Value |
 |----------|-------|
-| **Branch** | `fatal: not a git repository (or any of the parent directories): .git` |
-| **Commit** | `fatal: not a git repository (or any of the parent directories): .git` |
-| **Last Commit Message** | fatal: not a git repository (or any of the parent directories): .git |
+| **Branch** | `main` |
+| **Commit** | `ca97a61` |
+| **Last Commit Message** | first commit |
 
 ---
 
@@ -117,15 +117,15 @@ This README is **automatically regenerated** on every `mvn package` via `exec-ma
 | `Spring Boot project with Google AI integration and dynamic README auto-generation` | POM description |
 | `com.googleai` | Maven group ID |
 | `3.2.3` | Spring Boot parent version |
-| `2026-02-21 01:15:17` | Build timestamp |
+| `2026-02-21 01:21:23` | Build timestamp |
 | `21.0.9` | JVM runtime version |
 | `C:\Program Files\Java\jdk-21` | JAVA_HOME path |
 | `Windows 11` | Operating system |
 | `amd64` | OS architecture |
 | `skart` | System username |
-| `fatal: not a git repository (or any of the parent directories): .git` | Current git branch |
-| `fatal: not a git repository (or any of the parent directories): .git` | Short commit hash |
-| `fatal: not a git repository (or any of the parent directories): .git` | Last commit message |
+| `main` | Current git branch |
+| `ca97a61` | Short commit hash |
+| `first commit` | Last commit message |
 | `| Method | Endpoint | Handler |
 |--------|----------|---------|
 | `GET` | `/api/v1/health` | `HealthController.java::health()` |
@@ -137,4 +137,4 @@ This README is **automatically regenerated** on every `mvn package` via `exec-ma
 
 ---
 
-> 📝 **Auto-generated on `2026-02-21 01:15:17` — edit `readme-template.md` to customise, not this file.**
+> 📝 **Auto-generated on `2026-02-21 01:21:23` — edit `readme-template.md` to customise, not this file.**
