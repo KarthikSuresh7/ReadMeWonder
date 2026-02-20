@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.googleai</groupId>
+    <artifactId>google-ai</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>GoogleAi</name>
+    <description>Spring Boot project with Google AI integration and dynamic README auto-generation</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <!-- Points exec-maven-plugin to the generator source -->
+        <readme.generator.source>${project.basedir}/src/build/java/ReadmeGenerator.java</readme.generator.source>
+    </properties>
+
+    <dependencies>
+        <!-- Web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Dev Tools (optional, hot-reload) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Standard Spring Boot plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!--
+                ══════════════════════════════════════════════════════════════
+                  README AUTO-GENERATOR
+                  Bound to the 'package' phase — runs AFTER the jar is built.
+                  Compiles ReadmeGenerator.java on-the-fly and executes it.
+                ══════════════════════════════════════════════════════════════
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+
+                    <!-- Step 1: compile the generator -->
+                    <execution>
+                        <id>compile-readme-generator</id>
+                        <phase>package</phase>
+                        <goals><goal>exec</goal></goals>
+                        <configuration>
+                            <executable>javac</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>-d</argument>
+                                <argument>${project.build.directory}/readme-gen-classes</argument>
+                                <argument>${readme.generator.source}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- Step 2: run the generator -->
+                    <execution>
+                        <id>run-readme-generator</id>
+                        <phase>package</phase>
+                        <goals><goal>exec</goal></goals>
+                        <configuration>
+                            <executable>java</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>-cp</argument>
+                                <argument>${project.build.directory}/readme-gen-classes</argument>
+                                <argument>ReadmeGenerator</argument>
+                                <!-- Pass project metadata as args -->
+                                <argument>${project.name}</argument>
+                                <argument>${project.artifactId}</argument>
+                                <argument>${project.version}</argument>
+                                <argument>${project.description}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
